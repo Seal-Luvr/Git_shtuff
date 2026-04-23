@@ -14,3 +14,5 @@ Let's make this one committed
 #To see all info about your credentials and current repo #note that before you connect to GitHub the first time, it won't know about branches etc usethis::git_sitrep()
 
 #github is essentially creating a parallel version of your repository, tracking all of your commits.
+
+Hiiiiiiii Nils
