@@ -21,8 +21,6 @@ pull early and often.
 
 ## test modification
 
-<<<<<<< HEAD
 no THIS is the real file
 =======
 okay, this is the real test now
->>>>>>> b780ff5ef93af1e5b0acdb73537e96c5d4555478
