@@ -10,6 +10,7 @@ editor: visual
 
 library(dataRetrieval) 
 library(tidyverse)
+library(lubridate)
 
 ```
 
@@ -31,7 +32,7 @@ temp_data <- readNWISdv(siteNumbers, parameterCd, startDate, endDate)
 ```{r}
 
 # rename columns for clarity
-colnames(temp_data) <- c("agency_cd", "site_no", "Date", "temp_C")
+colnames(temp_data)[4] <- "temp_C"
 # extract some date info for use later
 temp_data$month = month(temp_data$Date, label=TRUE)
 temp_data$year = year(temp_data$Date)
@@ -42,5 +43,27 @@ ggplot(temp_data, aes(x=Date, y=temp_C, color=site_no)) +
   labs(title="Stream Temperature at Willamette River Sites",
        x="Date", y="Temperature (°C)", color="Site Number") +
   theme_minimal()
+
+```
+
+## Summary Statistics
+
+```{r}
+
+temp_summary <- temp_data %>%
+  group_by(site_no) %>%
+  summarize(
+    mean_temp = mean(temp_C, na.rm = TRUE),
+    max_temp = max(temp_C, na.rm = TRUE),
+    min_temp = min(temp_C, na.rm = TRUE)
+  )
+
+```
+
+## andddd save
+
+```{r}
+
+write_csv(temp_data, "willamette_temp.csv")
 
 ```
