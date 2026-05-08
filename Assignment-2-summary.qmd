@@ -1,0 +1,49 @@
+---
+title: "Summary of July and August Stream Temperature Trends"
+format: html
+editor: visual
+---
+
+## Overview
+
+This analysis examined long-term stream temperature trends at multiple Willamette River monitoring sites during July and August from 2010–2023.
+
+## Key Findings
+
+The July analysis showed stronger warming trends than August across monitoring locations. July stream temperatures demonstrated statistically significant relationships with year and site, suggesting that warming patterns differed among locations.
+
+The August analysis also showed increasing temperatures over time, although statistical relationships were weaker than those observed in July.
+
+## Management Implications
+
+Increasing summer stream temperatures may contribute to thermal stress for aquatic organisms and reduce the availability of suitable cold-water habitat. Continued warming trends could have implications for fisheries management and watershed conservation planning.
+
+## Example Visualization
+
+```{r}
+
+library(tidyverse)
+
+temp_data <- read_csv("willamette_temp.csv")
+
+july_data <- subset(temp_data, month == "Jul")
+
+ggplot(july_data,
+       aes(x = year,
+           y = temp_C,
+           color = factor(site_no))) +
+
+  geom_point(alpha = 0.3) +
+
+  geom_smooth(method = "lm", se = FALSE) +
+
+  labs(
+    title = "July Stream Temperature Trends",
+    x = "Year",
+    y = "Temperature (°C)",
+    color = "Site Number"
+  ) +
+
+  theme_minimal()
+
+```
