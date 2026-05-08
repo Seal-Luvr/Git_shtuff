@@ -1,0 +1,57 @@
+---
+title: "July Temperature Analysis"
+format: html
+---
+
+```{r}
+
+library(tidyverse)
+library(lubridate)
+
+temp_data <- read_csv("willamette_temp.csv")
+
+```
+
+## July Data
+
+```{r}
+
+july_data <- subset(temp_data, month == "Jul")
+
+```
+
+## GLM Trend Analysis
+
+```{r}
+
+july_model <- glm(
+  temp_C ~ year * site_no,
+  data = july_data
+)
+
+summary(july_model)
+
+```
+
+## Visualization
+
+```{r}
+
+ggplot(july_data,
+       aes(x = year,
+           y = temp_C,
+           color = site_no)) +
+
+  geom_point(alpha = 0.3) +
+
+  geom_smooth(method = "lm", se = FALSE) +
+
+  labs(
+    title = "July Stream Temperature Trends",
+    x = "Year",
+    y = "Temperature (°C)"
+  ) +
+
+  theme_minimal()
+
+```
